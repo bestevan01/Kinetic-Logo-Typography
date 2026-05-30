@@ -1,5 +1,5 @@
 {
-  "name": "Kinetic-Logo-Typegraphy",
+  "name": "Kinetic-Logo-Typography",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -14,7 +14,12 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@eslint/js": "^9.0.0",
     "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^9.0.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.0",
+    "globals": "^15.0.0",
     "vite": "^8.0.9"
   }
 }
