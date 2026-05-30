@@ -27,6 +27,10 @@ exit /b
 echo [1/3] 에셋 복사 중...
 if not exist "react-app\public" mkdir "react-app\public"
 
+if exist "config.json" (
+    copy /y "config.json" "react-app\public\config.json" >nul
+)
+
 if exist "logo.png" (
     copy /y "logo.png" "react-app\public\logo.png" >nul
     goto :CHECK_DATA_KO
@@ -80,6 +84,10 @@ exit /b
 :CHECK_ASSET_EN
 echo [1/3] Copying assets...
 if not exist "react-app\public" mkdir "react-app\public"
+
+if exist "config.json" (
+    copy /y "config.json" "react-app\public\config.json" >nul
+)
 
 if exist "logo.png" (
     copy /y "logo.png" "react-app\public\logo.png" >nul

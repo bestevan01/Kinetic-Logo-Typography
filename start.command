@@ -29,6 +29,10 @@ lang_ko() {
     echo "[1/3] 에셋 복사 중..."
     mkdir -p "react-app/public"
 
+    if [ -f "config.json" ]; then
+        cp -f "config.json" "react-app/public/config.json"
+    fi
+
     # Copy Logo (필수 항목 검사)
     if [ -f "logo.png" ]; then
         cp -f "logo.png" "react-app/public/logo.png"
@@ -77,6 +81,10 @@ lang_en() {
     # Asset Copy
     echo "[1/3] Copying assets..."
     mkdir -p "react-app/public"
+
+    if [ -f "config.json" ]; then
+        cp -f "config.json" "react-app/public/config.json"
+    fi
 
     # Copy Logo (Required)
     if [ -f "logo.png" ]; then

@@ -52,11 +52,22 @@
 | 김철수 |      |
 | 이영희 | O    |
 
+#### 3. 세부 설정 변경하기 (선택 사항)
+
+코드를 수정할 필요 없이, 최상위 폴더에 있는 **`config.json`** 파일을 메모장으로 열어 애니메이션의 속도와 색상 등을 자유롭게 커스텀할 수 있습니다.
+
+* `spreadDuration`: 입자들이 흩어져서 출발을 대기하는 총 시간 (초)
+* `flightDuration`: 입자가 화면 밖에서 지정된 위치로 날아오는 순수 비행 시간 (초)
+* `logoFadeDuration`: 최종 로고 사진이 서서히 선명하게 나타나는 시간 (초)
+* `logoWidth`: 화면 중앙에 모이는 로고의 가로 크기 (픽셀)
+* `backgroundColor`: 배경 색상 (예: `"#050a15"`, `"black"`)
+* `sequentialOrder`: 명단에 적힌 순서대로 차례대로 출발할지 여부 (`true`: 명단 순서대로, `false`: 무작위 섞기)
+
 ### 🚀 실행 방법 (Run)
 
 운영체제에 맞는 스크립트 파일을 실행하면 파일 복사부터 서버 구동까지 자동으로 진행됩니다.
 
-* **Windows 사용자:** 최상위 폴더에 있는 **`start.bat`** 파일을 더블클릭하여 실행합니다.
+* **Windows 사용자:** 최상위 폴더에 있는 **`start_final.bat`** 파일을 더블클릭하여 실행합니다.
 * **Mac (macOS) 사용자:** 최상위 폴더에 있는 **`start.command`** 파일을 더블클릭하여 실행합니다.
   *(주의: macOS 보안 정책상 최초 1회는 실행 권한을 부여해야 합니다. 아래 절차를 따라주세요.)*
     1. `Launchpad` > `기타` > `터미널(Terminal)`을 엽니다.
@@ -92,8 +103,7 @@ If not installed, click the link below that matches your operating system to dow
 * 🍎 **Mac (macOS) Users:** [Download Node.js (Direct Link)](https://nodejs.org/dist/v24.16.0/node-v24.16.0.pkg)
 
 *(If the direct links above do not work, please visit the [Node.js Official Website](https://nodejs.org/en/download) to
-download it
-manually.)*
+download it manually.)*
 
 ### 🛠 How to Use
 
@@ -122,11 +132,23 @@ When preparing your Excel or CSV file, you must follow these rules:
 | Jane Smith |          |
 | Alice      | O        |
 
+#### 3. Customize Settings (Optional)
+
+Without modifying the code, you can open the **`config.json`** file in the root folder with a text editor (like Notepad)
+to freely customize the speed, color, and more.
+
+* `spreadDuration`: Total wait time for particles to scatter and depart (seconds).
+* `flightDuration`: Pure flight time for particles to reach their designated positions (seconds).
+* `logoFadeDuration`: Time it takes for the final logo to smoothly fade in (seconds).
+* `logoWidth`: The width of the final logo gathered in the center (pixels).
+* `backgroundColor`: Background color (e.g., `"#050a15"`, `"black"`).
+* `sequentialOrder`: Whether particles depart in the order listed (`true`: list order, `false`: random shuffle).
+
 ### 🚀 How to Run
 
 Run the script file matching your OS to automatically copy the files and start the server.
 
-* **Windows Users:** Double-click the **`start.bat`** file in the root folder.
+* **Windows Users:** Double-click the **`start_final.bat`** file in the root folder.
 * **Mac (macOS) Users:** Double-click the **`start.command`** file in the root folder.
   *(Note: Due to macOS's security policy, you must grant execution permission the first time. Follow these steps:)*
     1. Open `Launchpad` > `Other` > `Terminal`.

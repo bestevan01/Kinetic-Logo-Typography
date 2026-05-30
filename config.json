@@ -1,0 +1,15 @@
+{
+  "_안내": "시간은 초(s), 크기는 픽셀(px) 단위입니다. 각 항목의 값을 자유롭게 수정하세요.",
+  "_설명_spreadDuration": "입자들이 흩어져서 출발을 대기하는 총 시간",
+  "spreadDuration": 10,
+  "_설명_flightDuration": "입자가 화면 밖에서 지정된 위치로 날아오는 순수 비행 시간",
+  "flightDuration": 7,
+  "_설명_logoFadeDuration": "최종 로고 사진이 서서히 선명하게 나타나는 시간",
+  "logoFadeDuration": 2.5,
+  "_설명_logoWidth": "화면 중앙에 모이는 로고의 가로 크기",
+  "logoWidth": 200,
+  "_설명_backgroundColor": "배경 색상 (기본값: 진한 남색)",
+  "backgroundColor": "#050a15",
+  "_설명_sequentialOrder": "명단에 적힌 순서대로 차례대로 출발할지 여부 (true: 명단 순서대로, false: 무작위 섞기)",
+  "sequentialOrder": false
+}

@@ -141,6 +141,7 @@ sketch
 
 public/logo.png
 public/namesData.csv
+public/config.json
 
 ### Windows ###
 # Windows thumbnail cache files

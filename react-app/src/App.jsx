@@ -9,10 +9,30 @@ export default function App() {
     const [namesData, setNamesData] = useState([]);
     const [priorityNames, setPriorityNames] = useState([]);
     const [isDataLoaded, setIsDataLoaded] = useState(false);
+    const [config, setConfig] = useState(null);
 
     useEffect(() => {
         const loadData = async () => {
             try {
+                let loadedConfig = {
+                    spreadDuration: 10,
+                    flightDuration: 7,
+                    logoFadeDuration: 2.5,
+                    logoWidth: 200,
+                    backgroundColor: "#050a15",
+                    sequentialOrder: false
+                };
+
+                try {
+                    const configRes = await fetch('/config.json');
+                    if (configRes.ok) {
+                        loadedConfig = await configRes.json();
+                    }
+                } catch (e) {
+                    console.warn('config.json을 찾을 수 없어 기본값을 사용합니다.');
+                }
+                setConfig(loadedConfig);
+
                 const parsedNames = [];
                 const parsedPriorities = [];
 
@@ -75,13 +95,13 @@ export default function App() {
 
 
     useEffect(() => {
-        if (!isDataLoaded) return;
+        if (!isDataLoaded || !config) return;
 
         const PARTICLE_COUNT = namesData.length;
         const img = new Image();
         img.src = '/logo.png';
         img.onload = () => {
-            const targetWidth = 200;
+            const targetWidth = config.logoWidth;
             const targetHeight = (img.height / img.width) * targetWidth;
 
             const canvas = document.createElement('canvas');
@@ -111,12 +131,15 @@ export default function App() {
                 }
             }
 
+            const INITIAL_BUFFER = 1.5;
             const progressiveDelays = [];
             for (let i = 0; i < PARTICLE_COUNT; i++) {
-                progressiveDelays.push(1.5 + (i / PARTICLE_COUNT) * 10);
+                progressiveDelays.push(INITIAL_BUFFER + (i / PARTICLE_COUNT) * config.spreadDuration);
             }
 
-            progressiveDelays.sort(() => Math.random() - 0.5);
+            if (!config.sequentialOrder) {
+                progressiveDelays.sort(() => Math.random() - 0.5);
+            }
 
             const newParticles = [];
             for (let i = 0; i < PARTICLE_COUNT; i++) {
@@ -139,22 +162,26 @@ export default function App() {
                     targetY: randomPixel.y,
                     color: randomPixel.color,
                     isPriority,
-                    delay: isPriority ? (priorityIndex * (1.5 / priorityNames.length)) : progressiveDelays[i],
+                    delay: isPriority ? (priorityIndex * (INITIAL_BUFFER / priorityNames.length)) : progressiveDelays[i],
                 });
             }
 
             setParticles(newParticles);
 
             setTimeout(() => setIsAssembled(true), 500);
-            setTimeout(() => setIsFinal(true), 20000);
+
+            const totalAssemblyTimeMs = (INITIAL_BUFFER * 2 + config.spreadDuration + config.flightDuration + 0.5) * 1000;
+            setTimeout(() => setIsFinal(true), totalAssemblyTimeMs);
         };
-    }, [isDataLoaded, namesData, priorityNames]);
+    }, [isDataLoaded, namesData, priorityNames, config]);
+
+    if (!config) return null;
 
     return (
         <div style={{
             width: '100vw',
             height: '100vh',
-            backgroundColor: '#050a15',
+            backgroundColor: config.backgroundColor,
             overflow: 'hidden',
             display: 'flex',
             justifyContent: 'center',
@@ -173,8 +200,8 @@ export default function App() {
                         opacity: isFinal ? 0 : (isAssembled ? 0.9 : 0),
                         transform: `translate(${isAssembled ? p.targetX : p.startX}px, ${isAssembled ? p.targetY : p.startY}px) scale(${isAssembled ? 1 : 2.5})`,
                         transition: isFinal
-                            ? `transform 7s cubic-bezier(0.7, 0, 0.2, 1) ${p.delay + 1.5}s, opacity 2.5s ease-in-out`
-                            : `transform 7s cubic-bezier(0.7, 0, 0.2, 1) ${p.delay + 1.5}s, opacity 2s ease ${p.delay}s`,
+                            ? `transform ${config.flightDuration}s cubic-bezier(0.7, 0, 0.2, 1) ${p.delay + 1.5}s, opacity ${config.logoFadeDuration}s ease-in-out`
+                            : `transform ${config.flightDuration}s cubic-bezier(0.7, 0, 0.2, 1) ${p.delay + 1.5}s, opacity 2s ease ${p.delay}s`,
                         pointerEvents: 'none',
                         whiteSpace: 'nowrap'
                     }}
@@ -190,8 +217,8 @@ export default function App() {
                     position: 'absolute',
                     opacity: isFinal ? 1 : 0,
                     transform: `scale(1)`,
-                    transition: 'opacity 2.5s ease-in-out',
-                    width: '200px',
+                    transition: `opacity ${config.logoFadeDuration}s ease-in-out`,
+                    width: `${config.logoWidth}px`,
                     pointerEvents: 'none'
                 }}
             />
